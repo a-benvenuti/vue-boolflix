@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Google Fonts -->
-  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <!-- /Google Fonts -->
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
@@ -30,10 +31,41 @@
 
 <div id="root">
   <header class="df">
-
+    <!-- logo -->
+    <div class="header__logo">
+      <h1 class="big-text">BOOLFLIX</h1>
+    </div>
+    <!-- /logo -->
+    <!-- ricerca -->
+    <div class="header__user__ricerca">
+      <span class="df">
+        <i class="df fas fa-search" @click="search"></i>
+        <input class="small-text" v-model="ricercaUtente" @keydown.13="search" type="text" placeholder="Search">
+      </span>
+    </div>
+    <!-- /ricerca -->
   </header>
 
   <main>
+
+    <!-- contenitore film -->
+    <div class="wrapper df">
+
+      <!-- card film -->
+      <div class="card df" v-for="film in films">
+        <img class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" alt="imgdiprova">
+        <div class="overlay">
+          <h3 class="titolo small-text fl"> <span class="fb normal-text">Titolo: </span> {{film.title}}</h3>
+          <h3 class="titolo_originale small-text fl"> <span class="fb normal-text">Titolo originale: </span> {{film.original_title}}</h3>
+          <h5 class="voto small-text fl"> <span class="fb normal-text">Voto: </span> {{film.vote_average}}</h5>
+          <p class="overview small-text fl"> <span class="fb normal-text">Overview: </span> {{film.overview}}</p>
+        </div>
+      </div>
+      <!-- /card film -->
+
+
+    </div>
+    <!-- /contenitore film -->
 
   </main>
 </div>

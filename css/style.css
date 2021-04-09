@@ -6,53 +6,65 @@
 }
 /* ----/RESET---- */
 body{
-  background-color: grey;
+  font-family: 'Lato', sans-serif;
+  background-color: #2a2a2a;
   min-height: 100vh;
 }
 /* ----------------------------------------Mix---------------------------------------- */
-i{font-size: 40px; color: white;}
-span{font-size: 20px; color: lightgrey; margin: 8px 0px;}
-h1, h2, h3, h4, h5, h6, p{color: white;}
-h3{text-transform: uppercase; margin: 12px 0px;}
+
+h1{color: red;}
+h2, h3, h4, h5, h6, p, span{color: white;}
 .big-text{font-size: 30px;}
 .normal-text{font-size: 20px;}
-.small-text{font-size: 16px; font-weight: bold;}
+.small-text{font-size: 16px;}
 .xsmall-text{font-size: 14px; font-weight: bold;}
 /* ---------------------------------------/Mix---------------------------------------- */
-/* --------------------------------------Discs------------------------------------- */
+/* --------------------------------------BoolFlix------------------------------------- */
 /* -------------------HEADER------------------- */
 header{
   height: 80px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid white;
-  background-color: #2E3A46;
+  border-bottom: 2px solid red;
+  background-color: #040404;
   padding: 12px;
 }
+.header__user__ricerca span{width: 100%; align-items: center; background-color: white; border-radius: 5px;}
+.header__user__ricerca span i{flex-basis: 10%; justify-content: center; font-size: 14px; margin: 0px 5px; color: #B1B1B1; cursor: pointer}
+.header__user__ricerca span input{flex-basis: 90%; line-height: 25px; padding: 0 20px; border: none; border-radius: 5px; border: 1px solid #EAEAEA;}
 /* -------------------/HEADER------------------- */
 
 /* -------------------MAIN------------------- */
-.wrapper{
-  max-width: 1080px;
-  height: 100%;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 50px 0;
+main {
+    width: 100%;
+    height: calc(100% - 82px);
+    padding: 30px;
 }
-
+.wrapper{
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+.card {
+    position: relative;
+    width: 300px;
+    height: 450px;
+    margin: 10px;
+    cursor: pointer;
+}
+.card .poster {width: 100%;}
+.card .overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 40px 20px; background-color: black; opacity: 0;}
+.card .overlay .overview { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 8;}
+.card:hover .overlay {opacity: 1;}
 /* -------------------/MAIN------------------- */
-/* --------------------------------------/Discs------------------------------------- */
+/* --------------------------------------/BoolFlix------------------------------------- */
 /* ----helpers----*/
 .df{display: flex;}
+.fb{font-weight: bold;}
+.fl{font-weight: lighter;}
 /* ----/helpers----*/
 /* ---------------------------------RESPONSIVE------------------------------------- */
-@media (max-width:992px) {
 
-}
-@media (max-width:762px) {
-
-}
 /* ---------------------------------/RESPONSIVE------------------------------------- */
