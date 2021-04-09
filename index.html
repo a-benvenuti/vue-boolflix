@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- /css -->
   <!-- favicon -->
-  <link rel="icon" type="image/png" href=""/>
+  <link rel="icon" type="image/png" href="img/logo_B_Boolflix.png"/>
   <!-- /favicon -->
   <title>Boolflix</title>
 </head>
@@ -33,7 +33,8 @@
   <header class="df">
     <!-- logo -->
     <div class="header__logo">
-      <h1 class="big-text">BOOLFLIX</h1>
+      <!-- <h1 class="big-text">BOOLFLIX</h1> -->
+      <img src="img/boolflix.png" alt="logo">
     </div>
     <!-- /logo -->
     <!-- ricerca -->
@@ -47,13 +48,12 @@
   </header>
 
   <main>
-
-    <!-- contenitore film -->
-    <div class="wrapper df">
-
+    <!-- contenitore film popolari-->
+    <h2 class="tp-film big-text" v-if="films.length == 0">FILM PIU' VISTI</h2>
+    <div class="wrapper df" v-if="films.length == 0">
       <!-- card film -->
-      <div class="card df" v-for="film in films">
-        <img class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" alt="imgdiprova">
+      <div class="card df" v-for="film in filmsPopular">
+        <img class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" :alt="film.title">
         <div class="overlay">
           <h3 class="titolo small-text fl"> <span class="fb normal-text">Titolo: </span> {{film.title}}</h3>
           <h3 class="titolo_originale small-text fl"> <span class="fb normal-text">Titolo originale: </span> {{film.original_title}}</h3>
@@ -62,8 +62,21 @@
         </div>
       </div>
       <!-- /card film -->
-
-
+    </div>
+    <!-- /contenitore film popolari -->
+    <!-- contenitore film -->
+    <div class="wrapper df">
+      <!-- card film -->
+      <div class="card df" v-for="film in films">
+        <img class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" :alt="film.title">
+        <div class="overlay">
+          <h3 class="titolo small-text fl"> <span class="fb normal-text">Titolo: </span> {{film.title}}</h3>
+          <h3 class="titolo_originale small-text fl"> <span class="fb normal-text">Titolo originale: </span> {{film.original_title}}</h3>
+          <h5 class="voto small-text fl"> <span class="fb normal-text">Voto: </span> {{film.vote_average}}</h5>
+          <p class="overview small-text fl"> <span class="fb normal-text">Overview: </span> {{film.overview}}</p>
+        </div>
+      </div>
+      <!-- /card film -->
     </div>
     <!-- /contenitore film -->
 
