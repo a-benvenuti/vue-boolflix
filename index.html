@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- /css -->
   <!-- favicon -->
-  <link rel="icon" type="image/png" href="img/logo_B_Boolflix.png"/>
+  <link rel="icon" type="image/png" href="img/logo-b.png"/>
   <!-- /favicon -->
   <title>Boolflix</title>
 </head>
@@ -33,52 +33,161 @@
   <header class="df">
     <!-- logo -->
     <div class="header__logo">
-      <!-- <h1 class="big-text">BOOLFLIX</h1> -->
-      <img src="img/boolflix.png" alt="logo">
+      <img src="img/boolflix.png" alt="logo" @click="ricarica">
     </div>
     <!-- /logo -->
     <!-- ricerca -->
     <div class="header__user__ricerca">
       <span class="df">
         <i class="df fas fa-search" @click="search"></i>
-        <input class="small-text" v-model="ricercaUtente" @keydown.13="search" type="text" placeholder="Search">
+        <input class="small-text" v-model="ricercaUtente" @keydown.13="search" type="text" placeholder="Search films and series">
       </span>
     </div>
     <!-- /ricerca -->
   </header>
 
   <main>
+
     <!-- contenitore film popolari-->
-    <h2 class="tp-film big-text" v-if="films.length == 0">FILM PIU' VISTI</h2>
+    <h2 class="tp big-text" v-if="films.length == 0">FILM PIU' VISTI</h2>
+    <hr class="tp-hr" v-if="films.length == 0">
     <div class="wrapper df" v-if="films.length == 0">
       <!-- card film -->
       <div class="card df" v-for="film in filmsPopular">
-        <img class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" :alt="film.title">
+        <!-- poster -->
+        <img v-if="film.poster_path != null" class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" :alt="film.title">
+        <img v-else class="poster" src="img/poster-null.jpg" alt="posterNull">
+        <!-- poster -->
         <div class="overlay">
           <h3 class="titolo small-text fl"> <span class="fb normal-text">Titolo: </span> {{film.title}}</h3>
           <h3 class="titolo_originale small-text fl"> <span class="fb normal-text">Titolo originale: </span> {{film.original_title}}</h3>
-          <h5 class="voto small-text fl"> <span class="fb normal-text">Voto: </span> {{film.vote_average}}</h5>
+          <!-- lingua -->
+          <div class="lingua normal-text fb cw">
+            Lingua:
+            <img v-if="flagsPopular.includes(film.original_language)" :src="'img/flags/' + film.original_language + '.svg'" class="flag" alt="flag">
+            <span v-else class="small-text fl">{{film.original_language}}</span>
+          </div>
+          <!-- /lingua -->
+          <!-- voto in stelle -->
+          <div class="voto normal-text fb cw">
+            Voto:
+            <span>
+              <i v-for="number in newVoto(film.vote_average)" class="fas fa-star"></i>
+              <i v-for="number in (5 - newVoto(film.vote_average))" class="far fa-star"></i>
+            </span>
+          </div>
+          <!-- /voto in stelle -->
           <p class="overview small-text fl"> <span class="fb normal-text">Overview: </span> {{film.overview}}</p>
         </div>
       </div>
       <!-- /card film -->
     </div>
     <!-- /contenitore film popolari -->
-    <!-- contenitore film -->
+
+    <!-- contenitore serieTv popolari-->
+    <h2 class="tp big-text" v-if="films.length == 0">SERIE TV PIU' VISTE</h2>
+    <hr class="tp-hr" v-if="films.length == 0">
+    <div class="wrapper df" v-if="films.length == 0">
+      <!-- card -->
+      <div class="card df" v-for="serie in seriesPopular">
+        <!-- poster -->
+        <img v-if="serie.poster_path != null" class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + serie.poster_path" :alt="serie.title">
+        <img v-else class="poster" src="img/poster-null.jpg" alt="posterNull">
+        <!-- poster -->
+        <div class="overlay">
+          <h3 class="titolo small-text fl"> <span class="fb normal-text">Titolo: </span> {{serie.name}}</h3>
+          <h3 class="titolo_originale small-text fl"> <span class="fb normal-text">Titolo originale: </span> {{serie.original_name}}</h3>
+          <!-- lingua -->
+          <div class="lingua normal-text fb cw">
+            Lingua:
+            <img v-if="flagsPopular.includes(serie.original_language)" :src="'img/flags/' + serie.original_language + '.svg'" class="flag" alt="flag">
+            <span v-else class="small-text fl">{{serie.original_language}}</span>
+          </div>
+          <!-- /lingua -->
+          <!-- voto in stelle -->
+          <div class="voto normal-text fb cw">
+            Voto:
+            <span>
+              <i v-for="number in newVoto(serie.vote_average)" class="fas fa-star"></i>
+              <i v-for="number in (5 - newVoto(serie.vote_average))" class="far fa-star"></i>
+            </span>
+          </div>
+          <!-- /voto in stelle -->
+          <p class="overview small-text fl"> <span class="fb normal-text">Overview: </span> {{serie.overview}}</p>
+        </div>
+      </div>
+      <!-- /card -->
+    </div>
+    <!-- /contenitore serieTv popolari -->
+
+    <!-- contenitore ricerca -->
+    <h2 class="tp big-text" v-if="films.length != 0">FILM</h2>
+    <hr class="tp-hr" v-if="films.length != 0">
     <div class="wrapper df">
       <!-- card film -->
       <div class="card df" v-for="film in films">
-        <img class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" :alt="film.title">
+        <!-- poster -->
+        <img v-if="film.poster_path != null" class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" :alt="film.title">
+        <img v-else class="poster" src="img/poster-null.jpg" alt="posterNull">
+        <!-- poster -->
         <div class="overlay">
           <h3 class="titolo small-text fl"> <span class="fb normal-text">Titolo: </span> {{film.title}}</h3>
           <h3 class="titolo_originale small-text fl"> <span class="fb normal-text">Titolo originale: </span> {{film.original_title}}</h3>
-          <h5 class="voto small-text fl"> <span class="fb normal-text">Voto: </span> {{film.vote_average}}</h5>
+          <!-- lingua -->
+          <div class="lingua normal-text fb cw">
+            Lingua:
+            <img v-if="flagsPopular.includes(film.original_language)" :src="'img/flags/' + film.original_language + '.svg'" class="flag" alt="flag">
+            <span v-else class="small-text fl">{{film.original_language}}</span>
+          </div>
+          <!-- /lingua -->
+          <!-- voto in stelle -->
+          <div class="voto normal-text fb cw">
+            Voto:
+            <span>
+              <i v-for="number in newVoto(film.vote_average)" class="fas fa-star"></i>
+              <i v-for="number in (5 - newVoto(film.vote_average))" class="far fa-star"></i>
+            </span>
+          </div>
+          <!-- /voto in stelle -->
           <p class="overview small-text fl"> <span class="fb normal-text">Overview: </span> {{film.overview}}</p>
         </div>
       </div>
       <!-- /card film -->
     </div>
-    <!-- /contenitore film -->
+    <h2 class="tp big-text" v-if="films.length != 0 && series.length != 0">SERIE TV</h2>
+    <hr class="tp-hr" v-if="films.length != 0 && series.length != 0">
+    <div class="wrapper df">
+      <!-- card serieTv -->
+      <div class="card df" v-for="serie in series">
+        <!-- poster -->
+        <img v-if="serie.poster_path != null" class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + serie.poster_path" :alt="serie.title">
+        <img v-else class="poster" src="img/poster-null.jpg" alt="posterNull">
+        <!-- poster -->
+        <div class="overlay">
+          <h3 class="titolo small-text fl"> <span class="fb normal-text">Titolo: </span> {{serie.name}}</h3>
+          <h3 class="titolo_originale small-text fl"> <span class="fb normal-text">Titolo originale: </span> {{serie.original_name}}</h3>
+          <!-- lingua -->
+          <div class="lingua normal-text fb cw">
+            Lingua:
+            <img v-if="flagsPopular.includes(serie.original_language)" :src="'img/flags/' + serie.original_language + '.svg'" class="flag" alt="flag">
+            <span v-else class="small-text fl">{{serie.original_language}}</span>
+          </div>
+          <!-- /lingua -->
+          <!-- voto in stelle -->
+          <div class="voto normal-text fb cw">
+            Voto:
+            <span>
+              <i v-for="number in newVoto(serie.vote_average)" class="fas fa-star"></i>
+              <i v-for="number in (5 - newVoto(serie.vote_average))" class="far fa-star"></i>
+            </span>
+          </div>
+          <!-- /voto in stelle -->
+          <p class="overview small-text fl"> <span class="fb normal-text">Overview: </span> {{serie.overview}}</p>
+        </div>
+      </div>
+      <!-- /card serieTv -->
+    </div>
+    <!-- /contenitore ricerca -->
 
   </main>
 </div>
