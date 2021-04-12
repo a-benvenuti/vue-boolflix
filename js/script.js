@@ -3,6 +3,11 @@ var app = new Vue(
     el: '#root',
     // -------------------------------------------------------------------------
     data: {
+      baseURL: 'https://api.themoviedb.org/3',
+      apiKey: 'acdbcdcacc7acfa06c08eabb7258ad40',
+      langIndex: 0,
+      languages:['it-IT', 'en-US'],
+      // ---
       films: [],
       series: [],
       filmsPopular: [],
@@ -18,11 +23,11 @@ var app = new Vue(
       },
       // funzione per la ricerca del film da parte dell'utente
       searchFilms: function() {
-          axios.get('https://api.themoviedb.org/3/search/movie', {
+          axios.get(this.baseURL + '/search/movie', {
               params: {
-                  api_key: "acdbcdcacc7acfa06c08eabb7258ad40",
+                  api_key: this.apiKey,
                   query: this.ricercaUtente,
-                  language: "it-IT",
+                  language: this.languages[this.langIndex],
               }
           })
           .then((risposta) => {
@@ -31,11 +36,11 @@ var app = new Vue(
       },
       // funzione per la ricerca della serieTv da parte dell'utente
       searchSeries: function() {
-          axios.get('https://api.themoviedb.org/3/search/tv', {
+          axios.get(this.baseURL + '/search/tv', {
               params: {
-                  api_key: "acdbcdcacc7acfa06c08eabb7258ad40",
+                  api_key: this.apiKey,
                   query: this.ricercaUtente,
-                  language: "it-IT",
+                  language: this.languages[this.langIndex],
               }
           })
           .then((risposta) => {
@@ -58,10 +63,10 @@ var app = new Vue(
     // -------------------------------------------------------------------------
     mounted: function() {
         // chiamata per i film piu visti
-        axios.get('https://api.themoviedb.org/3/movie/popular', {
+        axios.get(this.baseURL + '/movie/popular', {
           params: {
-              api_key: "acdbcdcacc7acfa06c08eabb7258ad40",
-              language: "it-IT",
+              api_key: this.apiKey,
+              language: this.languages[this.langIndex],
           }
         })
         .then((risposta) => {
@@ -70,10 +75,10 @@ var app = new Vue(
           }
         })
         // chiamata per le serieTv piu viste
-        axios.get('https://api.themoviedb.org/3/tv/popular', {
+        axios.get(this.baseURL + '/tv/popular', {
           params: {
-              api_key: "acdbcdcacc7acfa06c08eabb7258ad40",
-              language: "it-IT",
+              api_key: this.apiKey,
+              language: this.languages[this.langIndex],
           }
         })
         .then((risposta) => {
