@@ -13,7 +13,8 @@ var app = new Vue(
       filmsPopular: [],
       seriesPopular: [],
       ricercaUtente: '',
-      flagsPopular: ['de','en','es','fr','it','ja','ko','pt','ru','zh']
+      flagsPopular: ['de','en','es','fr','it','ja','ko','pt','ru','zh'],
+      option: 0,
     },
     // -------------------------------------------------------------------------
     methods: {

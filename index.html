@@ -45,13 +45,24 @@
     </div>
     <!-- /ricerca -->
   </header>
+  <nav>
+    <!-- filtro per tipo -->
+    <div class="header__filter select">
+      <select v-model="option" id="standard-select">
+        <option :value="0">All</option>
+        <option :value="1">Film</option>
+        <option :value="2">Serie Tv</option>
+      </select>
+    </div>
+    <!-- /filtro per tipo -->
+  </nav>
 
   <main>
 
     <!-- contenitore film popolari-->
-    <h2 class="tp big-text" v-if="films.length == 0 && series.length == 0">FILM PIU' VISTI</h2>
-    <hr class="tp-hr" v-if="films.length == 0 && series.length == 0">
-    <div class="wrapper df" v-if="films.length == 0 && series.length == 0">
+    <h2 class="tp big-text" v-if="films.length == 0 && series.length == 0 && (option == 0 || option == 1)">FILM PIU' VISTI</h2>
+    <hr class="tp-hr" v-if="films.length == 0 && series.length == 0 && (option == 0 || option == 1)">
+    <div class="wrapper df" v-if="films.length == 0 && series.length == 0 && (option == 0 || option == 1)">
       <!-- card film -->
       <div class="card df" v-for="film in filmsPopular">
         <!-- poster -->
@@ -86,9 +97,9 @@
     <!-- /contenitore film popolari -->
 
     <!-- contenitore serieTv popolari-->
-    <h2 class="tp big-text" v-if="films.length == 0 && series.length == 0">SERIE TV PIU' VISTE</h2>
-    <hr class="tp-hr" v-if="films.length == 0 && series.length == 0">
-    <div class="wrapper df" v-if="films.length == 0 && series.length == 0">
+    <h2 class="tp big-text" v-if="films.length == 0 && series.length == 0 && (option == 0 || option == 2)">SERIE TV PIU' VISTE</h2>
+    <hr class="tp-hr" v-if="films.length == 0 && series.length == 0 && (option == 0 || option == 2)">
+    <div class="wrapper df" v-if="films.length == 0 && series.length == 0 && (option == 0 || option == 2)">
       <!-- card -->
       <div class="card df" v-for="serie in seriesPopular">
         <!-- poster -->
@@ -122,11 +133,11 @@
     <!-- /contenitore serieTv popolari -->
 
     <!-- contenitore ricerca -->
-    <h2 class="tp big-text" v-if="films.length != 0">FILM</h2>
-    <hr class="tp-hr" v-if="films.length != 0">
+    <h2 class="tp big-text" v-if="films.length != 0 && (option == 0 || option == 1)">FILM</h2>
+    <hr class="tp-hr" v-if="films.length != 0 && (option == 0 || option == 1)">
     <div class="wrapper df">
       <!-- card film -->
-      <div class="card df" v-for="film in films">
+      <div class="card df" v-for="film in films" v-if="(option == 0 || option == 1)">
         <!-- poster -->
         <img v-if="film.poster_path != null" class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + film.poster_path" :alt="film.title">
         <img v-else class="poster" src="img/poster-null.jpg" alt="posterNull">
@@ -155,11 +166,11 @@
       </div>
       <!-- /card film -->
     </div>
-    <h2 class="tp big-text" v-if="series.length != 0">SERIE TV</h2>
-    <hr class="tp-hr" v-if="series.length != 0">
+    <h2 class="tp big-text" v-if="series.length != 0 && (option == 0 || option == 2)">SERIE TV</h2>
+    <hr class="tp-hr" v-if="series.length != 0 && (option == 0 || option == 2)">
     <div class="wrapper df">
       <!-- card serieTv -->
-      <div class="card df" v-for="serie in series">
+      <div class="card df" v-for="serie in series" v-if="(option == 0 || option == 2)">
         <!-- poster -->
         <img v-if="serie.poster_path != null" class="poster" :src=" 'https://image.tmdb.org/t/p/w300' + serie.poster_path" :alt="serie.title">
         <img v-else class="poster" src="img/poster-null.jpg" alt="posterNull">
