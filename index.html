@@ -49,9 +49,9 @@
   <main>
 
     <!-- contenitore film popolari-->
-    <h2 class="tp big-text" v-if="films.length == 0">FILM PIU' VISTI</h2>
-    <hr class="tp-hr" v-if="films.length == 0">
-    <div class="wrapper df" v-if="films.length == 0">
+    <h2 class="tp big-text" v-if="films.length == 0 && series.length == 0">FILM PIU' VISTI</h2>
+    <hr class="tp-hr" v-if="films.length == 0 && series.length == 0">
+    <div class="wrapper df" v-if="films.length == 0 && series.length == 0">
       <!-- card film -->
       <div class="card df" v-for="film in filmsPopular">
         <!-- poster -->
@@ -86,9 +86,9 @@
     <!-- /contenitore film popolari -->
 
     <!-- contenitore serieTv popolari-->
-    <h2 class="tp big-text" v-if="films.length == 0">SERIE TV PIU' VISTE</h2>
-    <hr class="tp-hr" v-if="films.length == 0">
-    <div class="wrapper df" v-if="films.length == 0">
+    <h2 class="tp big-text" v-if="films.length == 0 && series.length == 0">SERIE TV PIU' VISTE</h2>
+    <hr class="tp-hr" v-if="films.length == 0 && series.length == 0">
+    <div class="wrapper df" v-if="films.length == 0 && series.length == 0">
       <!-- card -->
       <div class="card df" v-for="serie in seriesPopular">
         <!-- poster -->
@@ -155,8 +155,8 @@
       </div>
       <!-- /card film -->
     </div>
-    <h2 class="tp big-text" v-if="films.length != 0 && series.length != 0">SERIE TV</h2>
-    <hr class="tp-hr" v-if="films.length != 0 && series.length != 0">
+    <h2 class="tp big-text" v-if="series.length != 0">SERIE TV</h2>
+    <hr class="tp-hr" v-if="series.length != 0">
     <div class="wrapper df">
       <!-- card serieTv -->
       <div class="card df" v-for="serie in series">
